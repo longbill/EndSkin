@@ -1,0 +1,10 @@
+{
+	"name" : "endskin",
+	"description" : "EndSkin Template Engine for NodeJS and Javascript.",
+	"tags" : ["nodejs", "util", "template", "skin"],
+	"version" : "0.0.8",
+	"author" : "Chunlong Liu <longbill.cn@gmail.com>",
+	"engines" : ["node >= 0.3.6"],
+	"main" : "endskin.js",
+	"dependencies": { }
+}

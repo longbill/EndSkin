@@ -1,0 +1,9 @@
+<p>
+{if($item.type==1)}
+	test type 1, name = {$item.name}
+{else}
+	<%
+		output.push(this.data.item.name);
+	%>
+{/if}
+</p>
