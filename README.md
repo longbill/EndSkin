@@ -118,7 +118,7 @@ console.log(t.html());
 
 	You can include any amount of templates. You can also use include in sub-template.html.
 
-### Native Javascript Code Snippets ###
+### Insert Native Javascript Code Snippets ###
 
 	<%
 		var a=1;
