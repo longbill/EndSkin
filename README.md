@@ -96,6 +96,8 @@ console.log(t.html());
 
 	{if($items.length > 0)} ... {else} ... {/if}
 
+	{if($price > 100)} ... {elseif($price > 10)} ... {else} ... {/if}
+
 ### Loops ###
 
 	for example, we setted endskin.data.items = [{type:1,name:"aaa"},{name:"bbb"},{name:"ccc"}];
