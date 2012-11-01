@@ -1,6 +1,6 @@
 # EndSkin Template Engine for NodeJS and Javascript #
 
-## How to ##
+## Quick Start ##
 
 	//require the module
 	var EndSkin = require('endskin');
@@ -96,7 +96,7 @@
 
 ### Loops ###
 
-	for example, we passed endskin.data.items = [{type:1,name:"aaa"},{name:"bbb"},{name:"ccc"}];
+	for example, we setted endskin.data.items = [{type:1,name:"aaa"},{name:"bbb"},{name:"ccc"}];
 
 	{foreach($items as $item)}
 		{$item.name}
@@ -113,8 +113,23 @@
 	the file name after "include" is based on the Root folder you setted with EndSkin.setRoot()
 
 	You can include any amount of templates. You can also use include in sub-template.html.
-	
 
+### Native Javascript Code Snippets ###
+
+	<%
+		var a=1;
+		a++;
+		var b = this.data.b;
+		output.push(a+','+b);
+	%>
+	
+	everything in <% %> will be parsed as native code snippets.
+
+	to access the data you setted in endskin.data, just use this.data
+
+	to write output back, just push the string to output array.
+
+	for convenience, <%=abc%> will be parsed as <% output.push(abc); %> 
 
 
 
