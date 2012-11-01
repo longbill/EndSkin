@@ -2,31 +2,33 @@
 
 ## Quick Start ##
 
-	//require the module
-	var EndSkin = require('endskin');
+```javascript
+//require the module
+var EndSkin = require('endskin');
 
-	//set the root folder of your view files
-	EndSkin.setRoot(__dirname+'/test/');
+//set the root folder of your view files
+EndSkin.setRoot(__dirname+'/test/');
 
-	//create an endskin instance
-	var t = EndSkin.create('index.html');
+//create an endskin instance
+var t = EndSkin.create('index.html');
 
-	//prepare the data to be passed to the view files
-	var items = [{type:1,name:"aaa"},{name:"bbb"},{name:"ccc"}];
+//prepare the data to be passed to the view files
+var items = [{type:1,name:"aaa"},{name:"bbb"},{name:"ccc"}];
 
-	//use any of these three methods to pass data
-	t.assign('items',items);
-	t.data.items = items;
-	t.assign({ items: items });
+//use any of these three methods to pass data
+t.assign('items',items);
+t.data.items = items;
+t.assign({ items: items });
 
-	//call html() method to get the output
-	console.log(t.html());
+//call html() method to get the output
+console.log(t.html());
 
-	//re-use the instance,  re-set data
-	t.data = {};
+//re-use the instance,  re-set data
+t.data = {};
 
-	//re-call html() method to get the output
-	console.log(t.html());
+//re-call html() method to get the output
+console.log(t.html());
+```
 
 ## Methods ##
 
@@ -134,7 +136,7 @@
 
 ## Technical Support ##
 
-	Chunlong <longbill.cn{#}gmail.com>
+	Chunlong <longbill.cn{#}gmail.com>,  [Chinese blog](http://php.js.cn/)
 	
 
 
