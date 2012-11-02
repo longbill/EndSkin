@@ -5,12 +5,14 @@ module.exports.setRoot = function(p)
 {
 	RootPath = p;
 	if (!RootPath.match(/\/$/)) RootPath+='/';
-}
+};
 
 module.exports.create = function(f)
 {
 	return new EndSkin(f);
-}
+};
+
+exports.cache = {};
 
 function EndSkin(tmpId)
 {
@@ -74,7 +76,7 @@ function EndSkin(tmpId)
 			}
 		}
 		
-		
+		var foreachBegins = 0;
 		if (ms = page.match(/\{(foreach\([^}]+\))\}/ig))
 		{
 			for(i=0; m=ms[i]; i++)
@@ -103,10 +105,11 @@ function EndSkin(tmpId)
 						continue;
 					}
 				}
+				foreachBegins++;
 			}
 		}
 		
-		
+		var ifBegins = 0;
 		if (ms = page.match(/\{(else\s*)?if\(.*?\)\}/ig))
 		{
 			for(i=0; m=ms[i]; i++)
@@ -118,17 +121,19 @@ function EndSkin(tmpId)
 					var code = 'if ('+cond+')\n{\n';
 					codeBlocks.push(code);
 					page = page.replace(m,'{{{{EndSkin.codeblock['+(codeBlocks.length-1)+']}}}}');
+					ifBegins++;
 				}
 				else if (_ms = m.match(/\{else\s*if\((.*?)\)\}/i))
 				{
 					var cond = this._replace_var_name(_ms[1]);
-					var code = '}\nelseif ('+cond+')\n{\n';
+					var code = '}\nelse if ('+cond+')\n{\n';
 					codeBlocks.push(code);
 					page = page.replace(m,'{{{{EndSkin.codeblock['+(codeBlocks.length-1)+']}}}}');
 				}
 			}
 		}
 		
+		var ifEnds = 0;
 		if (ms = page.match(/\{\/if\}/ig))
 		{
 			for(i=0; m=ms[i]; i++)
@@ -136,9 +141,11 @@ function EndSkin(tmpId)
 				var code = '}\n';
 				codeBlocks.push(code);
 				page = page.replace(m,'{{{{EndSkin.codeblock['+(codeBlocks.length-1)+']}}}}');
+				ifEnds++;
 			}
 		}
 		
+		var foreachEnds = 0;
 		if (ms = page.match(/\{\/foreach\}/ig))
 		{
 			for(i=0; m=ms[i]; i++)
@@ -146,6 +153,7 @@ function EndSkin(tmpId)
 				var code = '}\n}).call(this);\n';
 				codeBlocks.push(code);
 				page = page.replace(m,'{{{{EndSkin.codeblock['+(codeBlocks.length-1)+']}}}}');
+				foreachEnds++;
 			}
 		}
 		
@@ -210,7 +218,21 @@ function EndSkin(tmpId)
 		codes.push("return output.join('');");
 
 
-		return new Function(codes.join(''));
+		try
+		{
+			return new Function(codes.join(''));
+		}
+		catch(e)
+		{
+			var err = [];
+			if (foreachBegins > foreachEnds) err.push('missing '+(foreachBegins - foreachEnds)+' {/foreach}');
+			if (foreachBegins < foreachEnds) err.push('too much {/foreach}');
+			if (ifBegins > ifEnds) err.push('missing '+(ifBegins - ifEnds)+' {/if}');
+			if (ifBegins < ifEnds) err.push('too much {/if}');
+			var re = 'EndSkin Compile Error: \nview file:'+tmpId+'\n'+e.toString() + ';\n' + err.join(';\n');
+			throw new Error(re);
+			return re;
+		}
 	}
 	
 	this._replace_var_name = function(s)
@@ -244,8 +266,58 @@ function EndSkin(tmpId)
 	
 	this.html = function()
 	{
-		return cached_func.call(this);
+		if (typeof cached_func == 'function')
+			return cached_func.call(this);
+		else
+			return cached_func.toString();
 	};
 	
 	return this;
 };
+
+
+
+/*
+* express 3.x support
+*/
+exports.renderFile = function(path, options, fn)
+{
+	var key = path + ':func';
+
+	if('function' == typeof options) 
+	{
+		fn = options, options = {};
+	}
+
+	if (options.settings && options.settings.views)
+	{
+		RootPath = options.settings.views;
+	}
+	else
+	{
+		RootPath = path.replace(/\/[^\/]*$/,'/');
+	}
+	var tmpId = path.split('/').pop();
+	try 
+	{
+		if (options.cache && exports.cache[key])
+		{
+			exports.cache[key].data = options;
+			fn(null,exports.cache[key].html());
+		}
+		else
+		{
+			var func = new EndSkin(tmpId);
+			exports.cache[key] = func;
+			func.assign(options);
+			fn(null,func.html());
+		}
+	}
+	catch(err) 
+	{
+		fn(err);
+	}
+};
+
+
+exports.__express = exports.renderFile;

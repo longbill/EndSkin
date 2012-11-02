@@ -1,6 +1,8 @@
 <p>
 {if($item.type==1)}
 	test type 1, name = {$item.name}
+{elseif($item.type == 2)}
+	2222222
 {else}
 	<%
 		output.push(this.data.item.name);

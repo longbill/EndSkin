@@ -2,7 +2,7 @@ var EndSkin = require('../');
 EndSkin.setRoot(__dirname);
 
 var t = EndSkin.create('index.html');
-var items = [{type:1,name:"aaa"},{name:"bbb"},{name:"ccc"}];
+var items = [{type:1,name:"aaa"},{name:"bbb",type:2},{name:"ccc"}];
 
 
 
