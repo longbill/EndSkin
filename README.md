@@ -142,6 +142,8 @@ app.listen(3000);
 ### templates including ###
 
 	{include sub-template.html}
+	or
+	<!-- include sub-template.html -->
 
 	the file name after "include" is based on the Root folder you setted with EndSkin.setRoot()
 

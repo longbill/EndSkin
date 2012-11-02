@@ -45,6 +45,13 @@ function EndSkin(tmpId)
 			var _ms = m.match(/\{include (.*?)\}/i);
 			s = s.replace(m,this.getTemplateString(_ms[1]));
 		}
+
+		var ms = s.match(/\<\!\-\-\s*include (.*?)\s*\-\-\>/gi);
+		if (ms) for(var i=0,m;m=ms[i]; i++)
+		{
+			var _ms = m.match(/\<\!\-\-\s*include (.*?)\s*\-\-\>/i);
+			s = s.replace(m,this.getTemplateString(_ms[1]));
+		}
 		return s;
 	}
 	
