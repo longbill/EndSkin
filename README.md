@@ -30,6 +30,31 @@ t.data = {};
 console.log(t.html());
 ```
 
+## Express 3.x Support ##
+
+```javascript
+var express = require('express');
+var app = express();
+
+//set the root folder of view files
+app.set('views',__dirname+'/view/');
+
+//set whether to cache templates, when developing, I suggest do not cache it
+//app.enable('view cache');
+
+//set endskin the engine for .html files
+app.engine('html',require('endskin').__express);
+
+app.get('/',function(req,res)
+{
+	//now use endskin to parse index.html!  the second parameter is the data object
+	res.render('index.html',{a:"b"});
+});
+
+//start express server
+app.listen(3000);
+```
+
 ## Methods ##
 
 	module.setRoot(<String> Root folder path);
