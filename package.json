@@ -1,10 +1,32 @@
 {
-	"name" : "endskin",
-	"description" : "EndSkin Template Engine for NodeJS and Javascript.",
-	"tags" : ["nodejs", "util", "template", "skin"],
-	"version" : "0.0.8",
-	"author" : "Chunlong Liu <longbill.cn@gmail.com>",
-	"engines" : ["node >= 0.3.6"],
-	"main" : "endskin.js",
-	"dependencies": { }
+  "name": "endskin",
+  "description": "EndSkin Template Engine for NodeJS and Javascript.",
+  "tags": [
+    "nodejs",
+    "util",
+    "template",
+    "skin"
+  ],
+  "version": "0.0.8",
+  "author": "Chunlong Liu <longbill.cn@gmail.com>",
+  "engines": [
+    "node >= 0.3.6"
+  ],
+  "main": "endskin.js",
+  "dependencies": {},
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/longbill/EndSkin.git"
+  },
+  "keywords": [
+    "template",
+    "engine"
+  ],
+  "license": "BSD"
 }

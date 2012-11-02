@@ -1,5 +1,9 @@
 # EndSkin Template Engine for NodeJS and Javascript #
 
+## Install ##
+
+	npm install endskin
+
 ## Quick Start ##
 
 ```javascript
@@ -163,7 +167,7 @@ app.listen(3000);
 
 ## Technical Support ##
 
-	Chunlong <longbill.cn{#}gmail.com>,  [Chinese blog](http://php.js.cn/)
+Chunlong longbill.cn{#}gmail.com,  [Chinese blog](http://php.js.cn/)
 	
 
 
