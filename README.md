@@ -1,6 +1,6 @@
 # EndSkin Template Engine for NodeJS and Javascript #
 
-## Install ##
+## NPM Install ##
 
 	npm install endskin
 
@@ -165,6 +165,24 @@ app.listen(3000);
 	to write output back, just push the string to output array.
 
 	for convenience, <%=abc%> will be parsed as <% output.push(abc); %> 
+
+
+
+## Browser Support ##
+```html
+<script src="browser/endskin.js"></script>
+<script type="text/template" id="template-name">
+	template goes here  {include sub-template-name}
+</script>
+<script type="text/template" id="sub-template-name">
+	sub
+</script>
+<script>
+var t = new EndSkin('template-name');
+t.assign({a:1,b:2});
+document.body.innerHTML = t.html();
+</script>
+```
 
 
 ## Technical Support ##
