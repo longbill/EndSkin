@@ -183,6 +183,7 @@ t.assign({a:1,b:2});
 document.body.innerHTML = t.html();
 </script>
 ```
+Tested in IE6+, Chrome, Firefox, Opera, Safari
 
 
 ## Technical Support ##
