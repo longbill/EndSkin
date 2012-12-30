@@ -55,7 +55,7 @@ EndSkin.prototype.show_val = function(s)
 	for(var i=0;i<arr.length;i++)
 	{
 		var key = arr[i];
-		if (!val[key]) return '';
+		if (val[key] === undefined) return '';
 		val = val[key];
 	}
 	if (typeof val == 'function') val = val();
@@ -93,11 +93,11 @@ EndSkin.prototype.compile = function(page)
 {
 	var codeBlocks = [];
 	var ms = null,i=0,m;
-	if (ms = page.match(/\{(\$[a-zA-Z\_][a-zA-Z0-9\_\.\[\]\'\"]*)\}/ig))
+	if (ms = page.match(/\{(\$[a-z\_][a-z0-9\_\.\[\]\'\"\|\?\:]*)\}/ig))
 	{
 		for(i=0; m=ms[i]; i++)
 		{
-			var _ms = m.match(/\{(\$[a-zA-Z\_][a-zA-Z0-9\_\.\[\]\'\"]*)\}/i);
+			var _ms = m.match(/\{(\$[a-zA-Z\_][a-z0-9\_\.\[\]\'\"\|\?\:]*)\}/i);
 			var code = 'output.push('+this._replace_var_name(_ms[1])+');';
 			codeBlocks.push(code);
 			page = page.replace(m,'{{{{EndSkin.codeblock['+(codeBlocks.length-1)+']}}}}');

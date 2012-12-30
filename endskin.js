@@ -260,7 +260,7 @@ function EndSkin(tmpId)
 		for(var i=0;i<arr.length;i++)
 		{
 			var key = arr[i];
-			if (!val[key]) return '';
+			if (val[key] == undefined) return '';
 			val = val[key];
 		}
 		if (typeof val == 'function') val = val();
