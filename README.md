@@ -188,7 +188,7 @@ Tested in IE6+, Chrome, Firefox, Opera, Safari
 
 ## Technical Support ##
 
-Chunlong longbill.cn{#}gmail.com,  [Chinese blog](http://php.js.cn/)
+Chunlong longbill.cn@gmail.com,  http://jszen.com
 	
 
 
