@@ -34,7 +34,7 @@ t.data = {};
 console.log(t.html());
 ```
 
-## Express 3.x Support ##
+## Express 3.x,4.x Support ##
 
 ```javascript
 var express = require('express');
