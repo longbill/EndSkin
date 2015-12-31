@@ -2,7 +2,11 @@
 
 ## NPM Install ##
 
-	npm install endskin
+```
+npm install endskin
+```
+
+[![NPM](https://nodei.co/npm/endskin.png?downloads=true&stars=true)](https://www.npmjs.com/package/endskin)
 
 ## Quick Start ##
 
