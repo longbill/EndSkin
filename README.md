@@ -91,9 +91,9 @@ app.listen(3000);
 
 		To pass data to an endskin instance. You can use any of the three ways:
 
-			endskin.data.key = value;
-			endskin.assign(key,value);
-			endskin.assign({ key: value });
+			`endskin.data.key = value;`
+			`endskin.assign(key,value);`
+			`endskin.assign({ key: value });`
 
 		To clear data and reuse the instance. You can set endskin.data to an empty object.
 
@@ -108,16 +108,16 @@ app.listen(3000);
 
 ### Variables ###
 	
-	{$varname}
-	this will show the data you setted to endskin.data.varname
+	`{$varname}`
+	this will show the data you set to `endskin.data.varname`
 
-	{$obj.keyname}  will show  endskin.data.obj.keyname
+	`{$obj.keyname}`  will show  `endskin.data.obj.keyname`
 
-	<%=this.data.varname%> will show endskin.data.varname
+	`<%=this.data.varname%>` will show `endskin.data.varname`
 
-	<%=global.varname%> will show global.varname ( the nodejs runtime global )
+	`<%=global.varname%>` will show `global.varname` ( the nodejs runtime global )
 
-	<%=new Date().toString()%> will show the current datetime string
+	`<%=new Date().toString()%>` will show the current datetime string
 
 ### if/else ###
 
@@ -133,7 +133,7 @@ app.listen(3000);
 
 ### Loops ###
 
-	for example, we setted endskin.data.items = [{type:1,name:"aaa"},{name:"bbb"},{name:"ccc"}];
+	for example `endskin.data.items = [{type:1,name:"aaa"},{name:"bbb"},{name:"ccc"}];`
 
 	{foreach($items as $item)}
 		{$item.name}
@@ -145,26 +145,28 @@ app.listen(3000);
 
 ### templates including ###
 
-	{include sub-template.html}
+	`{include sub-template.html}`
 	or
-	<!-- include sub-template.html -->
+	`<!-- include sub-template.html -->`
 
-	the file name after "include" is based on the Root folder you setted with EndSkin.setRoot()
+	the file name after "include" is based on the Root folder you set with `EndSkin.setRoot()`
 
 	You can include any amount of templates. You can also use include in sub-template.html.
 
 ### Insert Native Javascript Code Snippets ###
 
+	```
 	<%
 		var a=1;
 		a++;
 		var b = this.data.b;
 		output.push(a+','+b);
 	%>
+	```
 	
 	everything in <% %> will be parsed as native code snippets.
 
-	to access the data you setted in endskin.data, just use this.data
+	to access the data you set in endskin.data, just use this.data
 
 	to write output back, just push the string to output array.
 
