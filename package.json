@@ -7,8 +7,8 @@
     "template",
     "skin"
   ],
-  "version": "0.1.0",
-  "author": "Chunlong Liu <longbill.cn@gmail.com>",
+  "version": "0.1.1",
+  "author": "Chunlong <longbill.cn@gmail.com>",
   "engines": [
     "node >= 0.3.6"
   ],
@@ -28,5 +28,5 @@
     "template",
     "engine"
   ],
-  "license": "BSD"
+  "license": "MIT"
 }
