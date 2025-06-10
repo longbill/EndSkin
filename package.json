@@ -7,7 +7,7 @@
     "template",
     "skin"
   ],
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Chunlong <longbill.cn@gmail.com>",
   "engines": [
     "node >= 0.3.6"

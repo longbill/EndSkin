@@ -11,6 +11,9 @@ t.data.items = items;
 //t.assign({ items: items });
 t.assign({a:'b'});
 
+t.vars.var1 = 'var1';
+t.vars.foobar = (n) => n + '2000';
+
 console.log(t.html());
 
 t.data = {};

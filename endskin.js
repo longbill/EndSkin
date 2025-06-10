@@ -48,6 +48,7 @@ function EndSkin(tmpId) {
 	}
 	
 	this.data = {};
+	this.vars = {};
 	
 	this.assign = function(key,val) {
 		if (key && val) {
@@ -177,6 +178,9 @@ function EndSkin(tmpId) {
 		ms = page.match(/\{\{\{\{EndSkin\.codeblock\[(\d+)\]\}\}\}\}/g);
 
 		let codes = ['var output = [];'];
+		for(let key in this.vars) {
+			codes.push(`var ${key}=this.vars.${key};`);
+		}
 		for(i=0;i<arr.length-1; i++) {
 			codes.push('output.push('+JSON.stringify(arr[i])+');\n');
 			let _ms = ms[i].match(/\{\{\{\{EndSkin\.codeblock\[(\d+)\]\}\}\}\}/);
@@ -223,11 +227,31 @@ function EndSkin(tmpId) {
 	
 	let s = this.getTemplateString(tmpId);
 	if (!s) return;
-	let cached_func = this.compile(s);
+	let cached_func = null;
 	
 	this.html = function() {
-		if (typeof cached_func == 'function')
-			return cached_func.call(this);
+		if (!cached_func) cached_func = this.compile(s);
+		
+		if (typeof cached_func == 'function') {
+			let output = '';
+			try {
+				output = cached_func.call(this);
+			} catch (err) {
+				let raw = cached_func.toString();
+				err.raw = raw;
+				if (err.stack) {
+					let ms = err.stack.match(/at.+anonymous\>\:(\d+)\:/);
+					let line = parseInt(ms[1] || 0, 10);
+					if (line > 0) {
+						let err2 = new Error(err.message + ' in ' + tmpId + ' near ' + raw.split(/\n/)[line-1]);
+						err2.raw = raw.split(/\n/)[line-1];
+						throw err2;
+					}
+				}
+				throw err;
+			}
+			return output;
+		}
 		else
 			return cached_func.toString();
 	};
@@ -236,38 +260,3 @@ function EndSkin(tmpId) {
 };
 
 
-
-/*
-* express 3.x, 4.x support
-*/
-exports.renderFile = function(filename, options, fn) {
-	let key = filename + ':func', tmpId = '';
-
-	if('function' == typeof options) {
-		fn = options, options = {};
-	}
-
-	if (options.settings && options.settings.views) {
-		RootPath = options.settings.views;
-		tmpId = filename;
-	} else {
-		RootPath = path.dirname(filename);
-		tmpId = path.basename(filename);
-	}
-	try {
-		if (options.cache && exports.cache[key]) {
-			exports.cache[key].data = options;
-			fn(null,exports.cache[key].html());
-		} else {
-			let func = new EndSkin(tmpId);
-			exports.cache[key] = func;
-			func.assign(options);
-			fn(null,func.html());
-		}
-	} catch(err) {
-		fn(err);
-	}
-};
-
-
-exports.__express = exports.renderFile;

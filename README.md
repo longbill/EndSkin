@@ -28,7 +28,14 @@ t.assign('items',items);
 t.data.items = items;
 t.assign({ items: items });
 
+//set local vars to use in the template
+t.vars.var1 = 'var1';
+t.vars.foobar = n => n + '2000';
+
 //call html() method to get the output
+//after first time call html(), endskin will create a cache
+//after the template is cached, the number of vars can not change,
+//but the value of vars could be changed
 console.log(t.html());
 
 //re-use the instance,  re-set data
@@ -36,31 +43,6 @@ t.data = {};
 
 //re-call html() method to get the output
 console.log(t.html());
-```
-
-## Express 3.x,4.x Support ##
-
-```javascript
-var express = require('express');
-var app = express();
-
-//set the root folder of view files
-app.set('views',__dirname+'/view/');
-
-//set whether to cache templates, when developing, I suggest do not cache it
-//app.enable('view cache');
-
-//set endskin the engine for .html files
-app.engine('html',require('endskin').__express);
-
-app.get('/',function(req,res)
-{
-	//now use endskin to parse index.html!  the second parameter is the data object
-	res.render('index.html',{a:"b"});
-});
-
-//start express server
-app.listen(3000);
 ```
 
 ## Methods ##
@@ -143,6 +125,10 @@ app.listen(3000);
 		{$i}. {$item.name}
 	{/foreacn}
 
+### Function Call ###
+
+	{parseInt(123)}
+
 ### templates including ###
 
 	{include sub-template.html}
@@ -171,28 +157,5 @@ app.listen(3000);
 	for convenience, <%=abc%> will be parsed as <% output.push(abc); %> 
 
 
-
-## Browser Support ##
-```html
-<script src="browser/endskin.js"></script>
-<script type="text/template" id="template-name">
-	template goes here  {include sub-template-name}
-</script>
-<script type="text/template" id="sub-template-name">
-	sub
-</script>
-<script>
-var t = new EndSkin('template-name');
-t.assign({a:1,b:2});
-document.body.innerHTML = t.html();
-</script>
-```
-Tested in IE6+, Chrome, Firefox, Opera, Safari
-
-
-## Technical Support ##
-
-Chunlong longbill.cn@gmail.com,  http://jszen.com
-	
 
 
