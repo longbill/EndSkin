@@ -6,6 +6,7 @@ This project is kindly supported by:
 
 - [Maplogs](https://maplogs.com) — Maplogs
 - [Dict.cat](https://dict.cat) — Dict.cat
+- [SeekMap](https://seekmap.ai) — SeekMap
 
 ## NPM Install ##
 
